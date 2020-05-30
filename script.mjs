@@ -30,8 +30,29 @@ const textValMappings = {0: "Stein", 1: "Papier", 2: "Schere", 3: "Brunnen", 4: 
 
 function createPlayer() {
     const playerName = getPlayerName();
-    local ? localRanking.push(new Player(playerName)) : serverRanking.push(new Player(playerName));
+    if (playerName !== null) {
+        if (local) {
+            let exists = alreadyExistsLocal(playerName);
+            if (exists.b) {
+                let existingPlayer = localRanking.splice(exists.i, 1)[0];
+                localRanking.push(existingPlayer);
+            } else {
+                localRanking.push(new Player(playerName));
+            }
+        } else {
+            serverRanking.push(new Player(playerName));
+        }
+    }
     return playerName;
+}
+
+function alreadyExistsLocal(playerName) {
+    for (let i = 0; i < localRanking.length; i++) {
+        if (playerName === (localRanking[i].name)) {
+            return {b: true, i: i};
+        }
+    }
+    return {b: false};
 }
 
 function playLocalGame() {
@@ -143,7 +164,7 @@ function getPlayerName() {
         alert("Bitte Namen eingeben");
         return null;
     }
-        return playerName;
+    return playerName;
 }
 
 function displayMode() {
@@ -245,9 +266,9 @@ function updateLocalRanking() {
 startBtn.addEventListener('click', function () {
     const playerName = createPlayer();
     if (playerName !== null) {
-    displayPlayerName(playerName);
-    displayMode();
-    switchPageView();
+        displayPlayerName(playerName);
+        displayMode();
+        switchPageView();
     }
     else {
         return;
