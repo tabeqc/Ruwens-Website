@@ -290,6 +290,7 @@ playBtn.addEventListener('click', async function () {
 // switch mode
 modeBtn.addEventListener('click', function () {
     local = !local;
+    clear();
     loadRankingView();
 });
 
