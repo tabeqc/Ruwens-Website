@@ -1,9 +1,13 @@
 'use strict';
 
-export async function getServerRanking() {
+import * as waiting from "./script.mjs";
+
+export async function getServerRanking(responseReceivedCallbackFn) {
+    waiting.setWaitingTrue();
+    await sleep(1000);
     let url = 'https://us-central1-schere-stein-papier-ee0C9.cloudfunctions.net/widgets/ranking';
-    const response = await fetch(url).catch(() => console.log("Error!"));
-    const data = await response.json();
+    const response = await fetch(url);
+    const data = await response.json().then(responseReceivedCallbackFn());
     return Object.entries(data);
 }
 
@@ -16,3 +20,7 @@ export async function getServerGame (yourPick, playerName) {
     return {enemyPick: choice,
             result: result};
 }
+
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+};
