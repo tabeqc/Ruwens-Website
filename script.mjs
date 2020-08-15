@@ -268,17 +268,14 @@ function updateHistory() {
 
 async function updateServerRanking() {
     if (firstTimeWaiting) {
-        console.log("waiting for ranking first Time");
         firstTimeWaiting = false;
         rankingTimeout = setTimeout(updateServerRanking, 200)
     }
     if (waitingForRanking) {
-        console.log("waiting for ranking Timeout");
         waitString += ".";
         rankingList.innerHTML = WAIT_TEXT + waitString;
         rankingTimeout = setTimeout(updateServerRanking, 200);
     } else {
-        console.log("waiting for ranking no Timeout");
         await loadServerRanking();
         firstTimeWaiting = true;
         sortAndRank(serverRanking);
