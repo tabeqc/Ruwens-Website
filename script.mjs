@@ -25,6 +25,11 @@ let local = true;
 let localRanking = [];
 let serverRanking = [];
 let history = [];
+export let waitingForRanking = false;
+let rankingTimeout;
+let firstTimeWaiting = true;
+let waitString = "";
+const WAIT_TEXT = "wird geladen";
 
 const textValMappings = {0: "Stein", 1: "Papier", 2: "Schere", 3: "Brunnen", 4: "Streichholz"};
 
@@ -112,10 +117,20 @@ function getYourPick() {
 }
 
 async function loadServerRanking() {
-    const sRanking = await service.getServerRanking();
+    const sRanking = await service.getServerRanking(responseReceived);
     for (const [key, value] of sRanking) {
         serverRanking.push(new Player(value.user, value.win));
     }
+}
+
+function responseReceived() {
+    waitingForRanking = false;
+    clearTimeout(rankingTimeout);
+    waitString = "";
+}
+
+export function setWaitingTrue() {
+    waitingForRanking = true;
 }
 
 function sortAndRank(ranking) {
@@ -252,9 +267,23 @@ function updateHistory() {
 }
 
 async function updateServerRanking() {
-    await loadServerRanking();
-    sortAndRank(serverRanking);
-    rankingList.innerHTML = rankingHTMLString(serverRanking);
+    if (firstTimeWaiting) {
+        console.log("waiting for ranking first Time");
+        firstTimeWaiting = false;
+        rankingTimeout = setTimeout(updateServerRanking, 200)
+    }
+    if (waitingForRanking) {
+        console.log("waiting for ranking Timeout");
+        waitString += ".";
+        rankingList.innerHTML = WAIT_TEXT + waitString;
+        rankingTimeout = setTimeout(updateServerRanking, 200);
+    } else {
+        console.log("waiting for ranking no Timeout");
+        await loadServerRanking();
+        firstTimeWaiting = true;
+        sortAndRank(serverRanking);
+        rankingList.innerHTML = rankingHTMLString(serverRanking);
+    }
 }
 
 function updateLocalRanking() {
