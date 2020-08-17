@@ -25,8 +25,9 @@ let local = true;
 let localRanking = [];
 let serverRanking = [];
 let history = [];
+export let waitingForGame = false;
 export let waitingForRanking = false;
-let rankingTimeout;
+let timeout;
 let firstTimeWaiting = true;
 let waitString = "";
 const WAIT_TEXT = "wird geladen";
@@ -78,24 +79,34 @@ async function playServerGame() {
 }
 
 async function evaluateServerGame(yourPick, playerName) {
-    const serverGame = await service.getServerGame(yourPick, playerName);
-    const choice = serverGame.enemyPick;
-    let result = serverGame.result;
-    switch (result) {
-        case true:
-            result = "Gewonnen";
-            break;
-        case false:
-            result = "Verloren";
-            break;
-        case undefined:
-            result = "Unentschieden";
-            break;
+    if (firstTimeWaiting) {
+        firstTimeWaiting = false;
+        timeout = setTimeout(evaluateServerGame, 200)
     }
-    return {
-        enemyPick: choice,
-        result: result
-    };
+    if (waitingForGame) {
+        displayLoadingAnimation();
+        timeout = setTimeout(evaluateServerGame, 200);
+    } else {
+        const serverGame = await service.getServerGame(yourPick, playerName, responseReceived);
+        firstTimeWaiting = true;
+        const choice = serverGame.enemyPick;
+        let result = serverGame.result;
+        switch (result) {
+            case true:
+                result = "Gewonnen";
+                break;
+            case false:
+                result = "Verloren";
+                break;
+            case undefined:
+                result = "Unentschieden";
+                break;
+        }
+        return {
+            enemyPick: choice,
+            result: result
+        };
+    }
 }
 
 function evaluateLocalGame(yourPick, enemyPick) {
@@ -124,12 +135,17 @@ async function loadServerRanking() {
 }
 
 function responseReceived() {
-    waitingForRanking = false;
-    clearTimeout(rankingTimeout);
+    waitingForGame = waitingForRanking = false;
     waitString = "";
+    clearLoadingAnimation();
+    clearTimeout(timeout);
 }
 
-export function setWaitingTrue() {
+export function setWaitingGameTrue() {
+    waitingForGame = true;
+}
+
+export function setWaitingRankingTrue() {
     waitingForRanking = true;
 }
 
@@ -180,6 +196,22 @@ function getPlayerName() {
         return null;
     }
     return playerName;
+}
+
+function displayLoadingAnimation() {
+    waitString += ".";
+    if (waitingForRanking) {
+        rankingList.innerHTML = WAIT_TEXT + waitString;
+    } else if (waitingForGame) {
+        resultField.innerHTML = WAIT_TEXT + waitString;
+        enemyPickField.innerHTML = WAIT_TEXT + waitString;
+    }
+}
+
+function clearLoadingAnimation() {
+    rankingList.innerHTML = "";
+    resultField.innerHTML = "";
+    enemyPickField.innerHTML = "";
 }
 
 function displayMode() {
@@ -269,12 +301,11 @@ function updateHistory() {
 async function updateServerRanking() {
     if (firstTimeWaiting) {
         firstTimeWaiting = false;
-        rankingTimeout = setTimeout(updateServerRanking, 200)
+        timeout = setTimeout(updateServerRanking, 200)
     }
     if (waitingForRanking) {
-        waitString += ".";
-        rankingList.innerHTML = WAIT_TEXT + waitString;
-        rankingTimeout = setTimeout(updateServerRanking, 200);
+        displayLoadingAnimation();
+        timeout = setTimeout(updateServerRanking, 200);
     } else {
         await loadServerRanking();
         firstTimeWaiting = true;
