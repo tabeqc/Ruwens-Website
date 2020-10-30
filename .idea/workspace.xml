@@ -2,21 +2,46 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="917ac62b-4aa2-4a17-a004-b1c29f4ecd32" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/ruwens_website.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ressources/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/servers/game-server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CNAME" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/CNAME" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/_config.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game-service.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/services/game-service.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/stylesheets/styling.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Pull.Settings">
     <option name="BRANCH" value="master" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1jEwAfa6sjDBMgcRCvlRb6Qvus3" />
   <component name="ProjectViewState">
@@ -27,8 +52,24 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.language" />
     <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\ruwen\OneDrive\Dokumente\HSR\_Coding Projekte\_WebStorm\ruwens_website\views" />
+      <recent name="C:\Users\ruwen\OneDrive\Dokumente\HSR\_Coding Projekte\_WebStorm\ruwens_website\services" />
+      <recent name="C:\Users\ruwen\OneDrive\Dokumente\HSR\_Coding Projekte\_WebStorm\ruwens_website\ressources" />
+      <recent name="C:\Users\ruwen\OneDrive\Dokumente\HSR\_Coding Projekte\_WebStorm\ruwens_website\scripts" />
+      <recent name="C:\Users\ruwen\OneDrive\Dokumente\HSR\_Coding Projekte\_WebStorm\ruwens_website\stylesheets" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -39,6 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603382417808</updated>
       <workItem from="1603382418910" duration="305000" />
+      <workItem from="1604069001679" duration="5662000" />
     </task>
     <task id="LOCAL-00001" summary="change website title">
       <created>1603382523805</created>
@@ -53,8 +95,29 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change website title" />
     <option name="LAST_COMMIT_MESSAGE" value="change website title" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="943" y="403" key="RollbackChangesDialog" timestamp="1604069026793">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="943" y="403" key="RollbackChangesDialog/-3840.0.1536.840/0.0.2560.1400@0.0.2560.1400" timestamp="1604069026793" />
+    <state x="513" y="324" key="SettingsEditor" timestamp="1604071495158">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="513" y="324" key="SettingsEditor/-3840.0.1536.840/0.0.2560.1400@0.0.2560.1400" timestamp="1604071495158" />
+    <state x="1130" y="614" key="VCS.ChangelistChooser" timestamp="1604069023136">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="1130" y="614" key="VCS.ChangelistChooser/-3840.0.1536.840/0.0.2560.1400@0.0.2560.1400" timestamp="1604069023136" />
+    <state x="950" y="544" key="git4idea.ui.GitTagDialog" timestamp="1604069035454">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="950" y="544" key="git4idea.ui.GitTagDialog/-3840.0.1536.840/0.0.2560.1400@0.0.2560.1400" timestamp="1604069035454" />
   </component>
 </project>

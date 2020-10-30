@@ -1,0 +1,15 @@
+{
+  "name": "ssp",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "script.mjs",
+  "scripts": {
+    "start": "node game-server.mjs"
+  },
+  "author": "Ruwen Frick",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
