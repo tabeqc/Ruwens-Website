@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="917ac62b-4aa2-4a17-a004-b1c29f4ecd32" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ressources/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/servers/game-server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CNAME" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/CNAME" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/_config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/favicon.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/game-service.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/services/game-service.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/ressources/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/script.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/stylesheets/styling.css" afterDir="false" />
-    </list>
+    <list default="true" id="917ac62b-4aa2-4a17-a004-b1c29f4ecd32" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,7 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1603382417808</updated>
       <workItem from="1603382418910" duration="305000" />
-      <workItem from="1604069001679" duration="5662000" />
+      <workItem from="1604069001679" duration="6381000" />
     </task>
     <task id="LOCAL-00001" summary="change website title">
       <created>1603382523805</created>
@@ -89,7 +77,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603382523805</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add basic express server to test&#10;restructured files">
+      <created>1604077552212</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1604077552212</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,9 +95,14 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change website title" />
-    <option name="LAST_COMMIT_MESSAGE" value="change website title" />
+    <MESSAGE value="add basic express server to test&#10;restructured files" />
+    <option name="LAST_COMMIT_MESSAGE" value="add basic express server to test&#10;restructured files" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="813" y="269" key="CommitChangelistDialog2" timestamp="1604077551342">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="813" y="269" key="CommitChangelistDialog2/-3840.0.1536.840/0.0.2560.1400@0.0.2560.1400" timestamp="1604077551342" />
     <state x="943" y="403" key="RollbackChangesDialog" timestamp="1604069026793">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
@@ -115,6 +115,10 @@
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
     <state x="1130" y="614" key="VCS.ChangelistChooser/-3840.0.1536.840/0.0.2560.1400@0.0.2560.1400" timestamp="1604069023136" />
+    <state x="873" y="433" key="Vcs.Push.Dialog.v2" timestamp="1604077564024">
+      <screen x="0" y="0" width="2560" height="1400" />
+    </state>
+    <state x="873" y="433" key="Vcs.Push.Dialog.v2/-3840.0.1536.840/0.0.2560.1400@0.0.2560.1400" timestamp="1604077564024" />
     <state x="950" y="544" key="git4idea.ui.GitTagDialog" timestamp="1604069035454">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
