@@ -305,11 +305,13 @@ async function updateServerRanking() {
     }
     if (waitingForRanking) {
         displayLoadingAnimation();
+        console.log("loading " + waitingForRanking);
         timeout = setTimeout(updateServerRanking, 200);
     } else {
         await loadServerRanking();
         firstTimeWaiting = true;
         sortAndRank(serverRanking);
+        console.log("updating");
         rankingList.innerHTML = rankingHTMLString(serverRanking);
     }
 }
