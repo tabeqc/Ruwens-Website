@@ -25,7 +25,6 @@ button {
     border-radius:12px;
     border:1px solid var(--dark-color);
     display:inline-block;
-    cursor:pointer;
     color: var(--dark-color);
     padding:5px 5px;
     text-decoration:none;
@@ -34,6 +33,10 @@ button {
 
 .hidden {
     visibility: hidden;
+}
+
+.tba {
+    display: none;
 }
 
 input {

@@ -2,21 +2,25 @@
 import * as controller from "./controller.mjs";
 import * as model from "./model.mjs";
 
-document.addEventListener('DOMContentLoaded', loadRankingView);
-
 let waitString = "";
+let serverRankingString = "";
+let localRankingString = "";
 const WAIT_TEXT = "wird geladen";
-const LOADING_INTERVAL = 200;
+const EMPTY_RANKING_TEXT = `<h3>Nock kein Ranking vorhanden</h3>`;
+const EMPTY_HISTORY_STRING = '<h3> noch kein Spiel gespielt </h3>';
+const SERVER_RANKING_MODE_STRING = "Server Ranking";
+const LOCAL_RANKING_MODE_STRING = "lokales Ranking";
+const INSERT_NAME_STRING= "Bitte Namen eingeben";
 const SECONDS_BETWEEN_GAMES = 2;
-const MAX_LENGTH_OF_RANKING = 10;
-const MAX_LENGTH_OF_HISTORY = 10;
 
 const gameSection = document.querySelector("#gameSection")
 const startSection = document.querySelector("#rankingSection");
 const startBtn = document.querySelector("#startBtn");
-const backBtn = document.querySelector("#backBtn");
 const playBtn = document.querySelector("#playBtn");
-const modeBtn = document.querySelector("#modeBtn");
+const backBtn = document.querySelector("#backBtn");
+export const localBotBtn = document.querySelector("#Local_vs_Bot");
+export const serverBotBtn = document.querySelector("#Server_vs_Bot");
+const rankingViewLoadingButtons = document.querySelectorAll(".rankingViewLoadingButton");
 const historyList = document.querySelector("#historyList");
 const rankingList = document.querySelector("#rankingList");
 const nameInputBox = document.querySelector("#nameInputBox");
@@ -26,46 +30,52 @@ const enemyPickField = document.querySelector("#enemyPickField");
 const timerField = document.querySelector("#timerField");
 const gameModeField = document.querySelector("#gameModeField");
 const rankingModeField = document.querySelector("#rankingModeField");
+//const modeButtons = document.querySelectorAll(".modeButton");
+// const headsUpBtn = document.querySelector("#HeadsUp");
 
-startBtn.addEventListener('click', function () {
-    const playerName = controller.createPlayer();
-    if (playerName !== null) {
-        displayPlayerName(playerName);
-        displayMode();
-        switchPageView();
-    }
-});
-
-modeBtn.addEventListener('click', function () {
-    controller.switchLocal();
-    clear();
-    loadRankingView();
-});
-
-playBtn.addEventListener('click', async function () {
-    controller.local ? controller.playLocalGame() : await controller.playServerGame();
-});
-
-backBtn.addEventListener('click', function () {
-    clear();
-    loadRankingView();
-    switchPageView();
-});
-
-export function getPlayerName() {
-    const playerName = nameInputBox.value;
-    if (playerName.length <= 0) {
-        alert("Bitte Namen eingeben");
-        return null;
-    }
-    return playerName;
+export function initStartButtonListener() {
+    startBtn.addEventListener('click', function () {
+        const playerName = getPlayerName();
+        if (playerName.length > 0) {
+            if (model.currentGameMode === model.GameMode.LOCAL_BOT) controller.addPlayerToLocalRanking(playerName);
+            controller.loadGameView(playerName);
+        } else {
+            alertUserWhenNameEmpty();
+        }
+    });
 }
 
-export function displayAndWait(game) {
+export function initRankingViewLoadingButtons() {
+    rankingViewLoadingButtons.forEach(button => {
+        button.addEventListener('click', event => {
+            if (event.target === backBtn) {
+                clearWhenBack();
+                switchPageView();
+            } else {
+                model.setGameMode(event.target);
+            }
+            model.loadRankingView(event.target).then();
+        });
+    });
+}
+
+export function initPlayButton() {
+    playBtn.addEventListener('click', async function () {
+        let game = model.currentGameMode === model.GameMode.LOCAL_BOT ? model.playLocalGame() : await model.playServerGame();
+        model.addGameToHistory(game);
+        displayPlayedGameAndWait(game);
+    });
+}
+
+//TODO: sanitize user input
+export function getPlayerName() {
+    return nameInputBox.value;
+}
+
+export function displayPlayedGameAndWait(game) {
     displayEnemyPickAndOutcome(game.enemyPick, game.outcome);
-    model.addGameToHistory(game);
-    displayUpdatedHistory();
-    evokeTimeout().then();
+    displayHistory();
+    evokeAndDisplayTimeout().then();
 }
 
 function displayEnemyPickAndOutcome(enemyPickText, resultText) {
@@ -73,107 +83,79 @@ function displayEnemyPickAndOutcome(enemyPickText, resultText) {
     outcomeField.innerHTML = `Resultat: ${resultText}`;
 }
 
-function displayUpdatedHistory() {
-    historyList.innerHTML = historyHTMLString();
-}
-
-function loadRankingView() {
-    if (controller.local) {
-        modeBtn.innerHTML = "zu Server wechseln";
-        rankingModeField.innerHTML = "lokales Ranking";
-        displayUpdatedLocalRanking();
-    } else {
-        modeBtn.innerHTML = "zu lokal wechseln";
-        rankingModeField.innerHTML = "Server Ranking";
-        displayUpdatedServerRanking().then();
+export function persistRankingString(rankingType) {
+    switch (rankingType) {
+        case "server": serverRankingString = generateRankingHTMLString(model.serverRanking); break;
+        case "local": localRankingString = generateRankingHTMLString(model.localRanking); break;
     }
 }
 
-async function displayUpdatedServerRanking() {
-    if (controller.firstTimeWaiting) {
-        controller.setFirstTimeWaitingFalse();
-        controller.setTimeout(displayUpdatedServerRanking, LOADING_INTERVAL);
-    }
-    if (controller.waitingForRanking) {
-        displayLoadingAnimation();
-        controller.setTimeout(displayUpdatedServerRanking, LOADING_INTERVAL);
-    } else {
-        controller.setFirstTimeWaitingFalse();
-        await controller.updateServerRanking();
-        rankingList.innerHTML = rankingHTMLString(model.serverRanking);
+export function displayPersistedRanking(rankingType) {
+    switch (rankingType) {
+        case "server": rankingList.innerHTML = model.serverRanking.length === 0 ? EMPTY_RANKING_TEXT : serverRankingString; break;
+        case "local": rankingList.innerHTML = model.localRanking.length === 0 ? EMPTY_RANKING_TEXT : localRankingString; break;
     }
 }
 
-function displayUpdatedLocalRanking() {
-    controller.updateLocalRanking();
-    rankingList.innerHTML = rankingHTMLString(model.localRanking);
+export function displayHistory() {
+    historyList.innerHTML = model.history.length === 0 ? EMPTY_HISTORY_STRING : generateHistoryHTMLString();
 }
 
-function switchPageView() {
+export function switchPageView() {
     if (startSection.hidden) {
         startSection.hidden = false;
-        gameSection.classList.add("hidden")
+        gameSection.classList.add("hidden");
     } else {
         startSection.hidden = true;
-        gameSection.classList.remove("hidden")
+        gameSection.classList.remove("hidden");
     }
 }
 
-function clear() {
+export function clearWhenBack() {
     model.clearHistory();
-    displayUpdatedHistory();
-    model.clearServerRanking();
+    displayHistory();
     playerNameField.innerHTML = "";
     outcomeField.innerHTML = "";
     enemyPickField.innerHTML = "";
+    if (model.currentGameMode === model.GameMode.SERVER_BOT) {
+        model.clearServerRanking();
+    }
 }
 
-function displayMode() {
-    controller.local ? gameModeField.innerHTML = "Spielmodus: lokal  |  " : gameModeField.innerHTML = "Spielmodus: Server  |  ";
+export function displayModeInGame() {
+    model.currentGameMode === model.GameMode.LOCAL_BOT ? gameModeField.innerHTML = "Spielmodus: lokal  |  " : gameModeField.innerHTML = "Spielmodus: Server  |  ";
 }
 
-function displayPlayerName(playerName) {
+export function displayPlayerName(playerName) {
     playerNameField.innerHTML = `Spieler Name: ${playerName}`;
-}
-
-function historyEntryHTMLString(game) {
-    return `<li> Resultat: ${game.outcome} | Deine Hand: ${game.yourPick} | Gegnerische Hand: ${game.enemyPick} </li>`;
-}
-
-function rankingEntryHTMLString(player) {
-    return `<li> ${player.rank}. Rang mit ${player.wins} Siegen: ${player.name}</li>`;
 }
 
 export function getPick() {
     return document.querySelector('input[name="pick"]:checked');
 }
 
-function historyHTMLString() {
-    if (model.history.length === 0) {
-        return `<h3>Nock kein Spiel gespielt</h3>`;
+function generateRankingHTMLString(ranking) {
+    let rankingHTMLString = "";
+    for (let player of ranking) {
+        rankingHTMLString += rankingEntryHTMLString(player);
     }
+    return rankingHTMLString;
+}
+
+function rankingEntryHTMLString(player) {
+    return `<li> ${player.rank}. Rang mit ${player.wins} Siegen: ${player.name} </li>`;
+}
+
+function generateHistoryHTMLString() {
     let historyHTMLString = "";
-    for (let i = 0; i < model.history.length; i++) {
-        historyHTMLString += historyEntryHTMLString(model.history[i]);
-        if (i >= MAX_LENGTH_OF_HISTORY) {
-            break;
-        }
+    for (let game of model.history) {
+        historyHTMLString += historyEntryHTMLString(game);
     }
     return historyHTMLString;
 }
 
-function rankingHTMLString(ranking) {
-    if (ranking.length === 0) {
-        return `<h3>Nock kein Ranking vorhanden</h3>`;
-    }
-    let rankingHTMLString = "";
-    for (let i = 0; i < ranking.length; i++) {
-        rankingHTMLString += rankingEntryHTMLString(ranking[i]);
-        if (i >= MAX_LENGTH_OF_RANKING) {
-            break;
-        }
-    }
-    return rankingHTMLString;
+function historyEntryHTMLString(game) {
+    return `<li> Resultat: ${game.outcome} | Deine Hand: ${game.yourPick} | Gegnerische Hand: ${game.enemyPick} </li> <br />`;
 }
 
 export function displayLoadingAnimation() {
@@ -193,7 +175,15 @@ export function clearLoadingAnimation() {
     enemyPickField.innerHTML = "";
 }
 
-async function evokeTimeout() {
+export function alertUserWhenNameEmpty() {
+    alert(INSERT_NAME_STRING);
+}
+
+export function displayRankingField() {
+    rankingModeField.innerHTML = model.currentGameMode === model.GameMode.LOCAL_BOT ? LOCAL_RANKING_MODE_STRING : SERVER_RANKING_MODE_STRING;
+}
+
+async function evokeAndDisplayTimeout() {
     playBtn.disabled = true;
     timerField.classList.remove("hidden");
     setTimeout(() => {

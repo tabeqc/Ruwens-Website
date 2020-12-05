@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="917ac62b-4aa2-4a17-a004-b1c29f4ecd32" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/controller.mjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model.mjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view.mjs" afterDir="false" />
+    <list default="true" id="917ac62b-4aa2-4a17-a004-b1c29f4ecd32" name="Default Changelist" comment="Optimized reusing existing string fragments">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controller.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/controller.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game-service.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/game-service.mjs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.mjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/model.mjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/styling.css" beforeDir="false" afterPath="$PROJECT_DIR$/styling.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/view.mjs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +48,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -60,6 +60,24 @@
       <option name="presentableId" value="Default" />
       <updated>1603382417808</updated>
       <workItem from="1603382418910" duration="305000" />
+      <workItem from="1604933288493" duration="4517000" />
+      <workItem from="1604944452905" duration="8080000" />
+      <workItem from="1605548646801" duration="2787000" />
+      <workItem from="1605878056184" duration="11518000" />
+      <workItem from="1606141240351" duration="6419000" />
+      <workItem from="1606147994480" duration="66000" />
+      <workItem from="1606150902630" duration="8774000" />
+      <workItem from="1606165415776" duration="44000" />
+      <workItem from="1606211180650" duration="1685000" />
+      <workItem from="1606315079649" duration="8179000" />
+      <workItem from="1606490443406" duration="4011000" />
+      <workItem from="1606494482859" duration="262000" />
+      <workItem from="1606743849848" duration="206000" />
+      <workItem from="1606744094648" duration="13000" />
+      <workItem from="1606748992434" duration="3597000" />
+      <workItem from="1607088694234" duration="620000" />
+      <workItem from="1607089446295" duration="7728000" />
+      <workItem from="1607179973674" duration="1381000" />
     </task>
     <task id="LOCAL-00001" summary="change website title">
       <created>1603382523805</created>
@@ -68,7 +86,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603382523805</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="changed file structure to support MVC pattern&#10;optimized code">
+      <created>1604686256470</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1604686256470</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -79,6 +104,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="change website title" />
-    <option name="LAST_COMMIT_MESSAGE" value="change website title" />
+    <MESSAGE value="changed file structure to support MVC pattern&#10;optimized code" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed file structure to support MVC pattern&#10;optimized code" />
   </component>
 </project>

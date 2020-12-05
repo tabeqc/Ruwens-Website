@@ -8,7 +8,14 @@
 </head>
 <body>
 <section id="rankingSection">
-    <button id="modeBtn" type="button"></button>
+    <section id="gameModes">
+        <input type="radio" id="Local_vs_Bot" name="mode" class="rankingViewLoadingButton modeChangingButton" checked>
+        <label for="Local_vs_Bot">Local vs. Bot</label>
+        <input type="radio" id="Server_vs_Bot" name="mode" class="rankingViewLoadingButton modeChangingButton">
+        <label for="Server_vs_Bot">Server vs. Bot</label>
+        <input type="radio" id="HeadsUp" name="mode" class="rankingViewLoadingButton modeChangingButton tba">
+        <label for="HeadsUp" class="tba">Heads Up vs. Human</label>
+    </section>
     <h1>Willkomen zu Schere Stein Papier (Brunnen Streichholz)!</h1>
     <h3>Bitte Namen eingeben um zu starten</h3>
     <label for="nameInputBox">Name:</label>
@@ -18,12 +25,12 @@
     <ul id="rankingList"></ul>
 </section>
 <section id="gameSection" class="hidden">
-    <button id="backBtn" type="button">Zurück zum Ranking</button> <br>
+    <button id="backBtn" type="button" class="rankingViewLoadingButton">Zurück zum Ranking</button> <br>
     <span id="gameModeField" class="small"></span><span id="playerName" class="small"></span>
     <h1>Das beste Spiel der Erde!</h1>
     <section id="picks">
         <h2>Wähle Deine Hand</h2>
-        <input type="radio" id="Stein" name="pick" value="0">
+        <input type="radio" id="Stein" name="pick" value="0" autofocus>
         <label for="Stein">Stein</label>
         <input type="radio" id="Papier" name="pick" value="1">
         <label for="Papier">Papier</label>
@@ -40,9 +47,9 @@
     <p id="outcomeField" class="big"></p>
     <ul id="historyList" class="small"></ul>
 </section>
+<script src="controller.mjs" type="module"></script>
 <script src="view.mjs" type="module"></script>
 <script src="model.mjs" type="module"></script>
-<script src="controller.mjs" type="module"></script>
 <script src="game-service.mjs" type="module"></script>
 </body>
 </html>
