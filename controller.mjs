@@ -30,7 +30,7 @@ export function addPlayerToLocalRanking(playerName) {
     existingPlayerIndex >= 0 ? model.prepareForExistingPlayer(existingPlayerIndex) : model.addPlayerToLocalRanking(playerName);
 }
 
-export async function loadServerRanking() {
+export async function loadServerRankingFromApiIntoModel() {
     model.addRangeOfPlayersToServerRanking(await service.getServerRanking(responseReceived));
 }
 

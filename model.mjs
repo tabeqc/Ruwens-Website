@@ -78,37 +78,39 @@ function evaluateLocalGame(yourPick, enemyPick) {
     }
 }
 
-//TODO: solve first time waiting problem
-//TODO: split up
+//TODO: solve first time waiting problem (Promises?)
 async function evaluateServerGame(playerName, yourPick) {
     if (controller.firstTimeWaiting) {
         controller.setFirstTimeWaitingFalse();
-        controller.setTimeout(evaluateServerGame, 200)
+        controller.setTimeout(evaluateServerGame, LOADING_INTERVAL)
     }
     if (controller.waitingForGame) {
         view.displayLoadingAnimation();
-        controller.setTimeout(evaluateServerGame, 200);
+        controller.setTimeout(evaluateServerGame, LOADING_INTERVAL);
     } else {
         //TODO: move service request to controller
         const serverGame = await service.getServerGame(playerName, yourPick, controller.responseReceived);
         controller.setFirstTimeWaitingTrue();
         const choice = serverGame.enemyPick;
-        let outcome = serverGame.outcome;
-        switch (outcome) {
-            case true:
-                outcome = "Gewonnen";
-                break;
-            case false:
-                outcome = "Verloren";
-                break;
-            case undefined:
-                outcome = "Unentschieden";
-                break;
-        }
+        let outcome = getOutcomeAsString(serverGame.outcome);
         return {
             enemyPick: choice,
             outcome: outcome
         };
+    }
+}
+
+function getOutcomeAsString(outcome) {
+    switch (outcome) {
+        case true:
+            return "Gewonnen";
+            break;
+        case false:
+            return "Verloren";
+            break;
+        case undefined:
+            return "Unentschieden";
+            break;
     }
 }
 
@@ -118,8 +120,7 @@ export async function loadRankingView(target) {
     if (currentGameMode === GameMode.LOCAL_BOT) {
         if (canBeDisplayedFromPersistedState(target)) {
             displayPersistedRanking(CollectionType.LOCAL);
-        }
-        else {
+        } else {
             displayUpdatedRanking(CollectionType.LOCAL);
             }
         }
@@ -156,7 +157,7 @@ async function loadServerRanking() {
         controller.setTimeout(loadServerRanking, LOADING_INTERVAL);
     } else {
         controller.setFirstTimeWaitingFalse();
-        await controller.loadServerRanking();
+        await controller.loadServerRankingFromApiIntoModel();
     }
 }
 
